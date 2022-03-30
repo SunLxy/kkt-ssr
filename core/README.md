@@ -63,8 +63,8 @@ npm install -g create-kkt-ssr
 # Create project, Using the template method
 create-kkt-ssr my-app -e react-router-rematch
 cd my-app # Enter the directory
-npm run watch # Watch file
-npm run server # Start service
+npm install # Watch file
+npm run start # Start service
 ```
 
 > ⚠️ A perfect example [`react-router-rematch`](example/react-router-rematch) is recommended for production environments, This example is similar to [`Next.js`](https://github.com/zeit/next.js).
@@ -247,20 +247,6 @@ export default {
       }
     }
   }),
-
-}
-
-```
-
-**Rewrite watchOptions**
-
-[watchOptions 参数](https://webpack.docschina.org/configuration/watch/#watchoptions)
-
-```ts
-
-export default {
-
-  watchOptions:{ }
 
 }
 
