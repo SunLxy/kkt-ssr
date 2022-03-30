@@ -16,7 +16,10 @@ const { choosePort } = require('react-dev-utils/WebpackDevServerUtils');
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 const HOST = process.env.HOST || 'localhost';
 
-export default async (env: "development" | "production", options: OptionsProps, isWebpackDevServer: boolean = false) => {
+export default async (env: "development" | "production", options: OptionsProps,) => {
+
+  let isWebpackDevServer = env === "development"
+
 
   /**  端口处理 */
   let PORT;
@@ -29,6 +32,8 @@ export default async (env: "development" | "production", options: OptionsProps, 
 
   process.env.PORT = PORT || "3000"
   process.env.HOST = HOST || "localhost";
+
+  const original = options.original || overrides.isUseOriginalConfig
 
   const { overridesClientWebpack, overridesServerWebpack, overridesWebpack, overridesCommonWebpack, ...rest } = overrides
 
@@ -43,11 +48,10 @@ export default async (env: "development" | "production", options: OptionsProps, 
     let newConfigClient = configClient
 
     // 控制 client 是否使用 ssr，默认情况下使用
-    if (!options.original || overrides.isUseOriginalConfig) {
-
-      newConfigClient = getWebpackConfig(configClient, "client", overrides, options.clientNodeExternals, options.clientIsChunk, env, isWebpackDevServer, options)
+    if (!original) {
+      newConfigClient = getWebpackConfig(configClient, "client", overrides, options.clientNodeExternals, options.clientIsChunk, env, options)
     }
-    if (isWebpackDevServer && (!options.original || !overrides.isUseOriginalConfig)) {
+    if (!original) {
       // 去除 source-map-loader
       newConfigClient = removeSourceMapLoader(newConfigClient)
     }
@@ -65,7 +69,7 @@ export default async (env: "development" | "production", options: OptionsProps, 
 
     const configServer = configFactory(env);
 
-    let newConfigServer = getWebpackConfig(configServer, "server", overrides, options.serverNodeExternals, options.serverIsChunk, env, isWebpackDevServer, options)
+    let newConfigServer = getWebpackConfig(configServer, "server", overrides, options.serverNodeExternals, options.serverIsChunk, env, options)
 
     newConfigServer.devtool = false
     newConfigServer.target = "node14"
@@ -76,15 +80,11 @@ export default async (env: "development" | "production", options: OptionsProps, 
     newConfigServer = removeSourceMapLoader(newConfigServer)
 
     if (overridesCommonWebpack) {
-
       newConfigServer = overridesCommonWebpack(newConfigServer, env, { ...rest, ...options })
-
     }
 
     if (overridesServerWebpack) {
-
       newConfigServer = overridesServerWebpack(newConfigServer, env, { ...rest, ...options })
-
     }
 
     configArr.push(newConfigServer)
