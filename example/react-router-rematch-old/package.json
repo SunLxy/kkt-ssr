@@ -16,7 +16,7 @@
     "@kkt/react-ssr-enhanced": "3.1.11",
     "@rematch/core": "2.2.0",
     "axios": "0.26.0",
-    "cookie-parser": "1.4.3",
+    "cookie-parser": "1.4.6",
     "cookiejs": "1.0.15",
     "express": "4.16.4",
     "http-proxy-middleware": "0.19.1",
