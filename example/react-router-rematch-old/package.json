@@ -20,7 +20,7 @@
     "cookie-parser": "1.4.3",
     "cookiejs": "1.0.15",
     "express": "~4.16.4",
-    "http-proxy-middleware": "~0.19.1",
+    "http-proxy-middleware": "~0.21.0",
     "react": "~17.0.2",
     "react-dom": "~17.0.2",
     "react-dynamic-loadable": "~3.0.0",
