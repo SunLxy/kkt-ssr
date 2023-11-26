@@ -53,7 +53,7 @@ jobs:
 
     - name: get tag version
       id: tag_version
-      uses: jaywcjlove/changelog-generator@v1.5.0
+      uses: jaywcjlove/changelog-generator@v1.9.6
 
     # 批量生成压缩包 并保存指定文件目录中
     - run: npm run build:js
@@ -126,7 +126,7 @@ jobs:
   
     - name: Generate Changelog
       id: changelog
-      uses: jaywcjlove/changelog-generator@v1.5.0
+      uses: jaywcjlove/changelog-generator@v1.9.6
       if: steps.create_tag.outputs.successful
       with:
         filter-author: (renovate-bot|Renovate Bot)
